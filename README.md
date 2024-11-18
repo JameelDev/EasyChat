@@ -33,5 +33,5 @@ Ensure you have the following installed:
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/easychat.git
+git clone https://github.com/JameelDev/EasyChat.git
 cd easychat

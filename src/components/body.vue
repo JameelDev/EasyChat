@@ -1,11 +1,17 @@
 <template>
-    <div class="container">
-      <div v-for="(message, index) in messages" :key="index" class="message">
-        <div class="user" dir="auto" v-if="message.role === 'user'">
-          {{ message.content }}
-        </div>
-        <div class="system" dir="auto" v-else>
-          {{ message.content }}
+    <div class="chat-body" ref="chatBody">
+      <div class="messages-list">
+        <div v-for="(message, index) in messages" :key="index" class="message">
+          <div class="message-title" :class="message.role">
+            {{ message.role === "user" ? "User" : "Assistant" }}
+          </div>
+          <div
+            class="message-content"
+            :class="message.role"
+            :style="{ textAlign: isArabic(message.content) ? 'right' : 'left' }"
+          >
+            {{ message.content }}
+          </div>
         </div>
       </div>
     </div>
@@ -16,35 +22,95 @@
     props: {
       messages: { type: Array, required: true },
     },
+    methods: {
+      scrollToBottom() {
+        this.$nextTick(() => {
+          const chatBody = this.$refs.chatBody;
+          if (chatBody) {
+            chatBody.scrollTo({
+              top: chatBody.scrollHeight,
+              behavior: "smooth",
+            });
+          }
+        });
+      },
+      isArabic(text) {
+        return /[\u0600-\u06FF]/.test(text);
+      },
+    },
+    watch: {
+      messages: {
+        handler() {
+          this.scrollToBottom();
+        },
+        deep: true,
+      },
+    },
+    mounted() {
+      this.scrollToBottom();
+    },
   };
   </script>
   
   <style lang="scss" scoped>
-  .container {
-    width: 100%;
+  .chat-body {
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    overflow-y: auto;
+    padding-bottom: 100px;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: #212121;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: #838383;
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background: #ffffff;
+    }
+  
+    .messages-list {
+      padding: 0 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
   
     .message {
       display: flex;
       flex-direction: column;
-      gap: 10px; // Apply the gap between messages
+      font-size: 20px;
   
-      .user,
-      .system {
-        flex-grow: 1; // Ensure the element grows to fill available space if necessary
-        min-height: 100px; // Minimum height
-        padding: 10px;
-        box-sizing: border-box; // Ensure padding doesn’t overflow
+      .message-title {
+        font-weight: bold;
+        margin-bottom: 4px;
+        color: #888;
+        text-align: left;
+  
+        &.user,
+        &.assistant {
+          color: #ffffff;
+        }
       }
   
-      .user {
-        background-color: green;
-      }
+      .message-content {
+        padding: 40px 30px;
+        border-radius: 15px;
+        line-height: 1.8;
+        word-wrap: break-word;
+        background-color: #2f2f2f;
   
-      .system {
-        background-color: red;
+        &.user,
+        &.assistant {
+          color: #ffffff;
+        }
       }
     }
   }

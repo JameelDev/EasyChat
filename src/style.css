@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,9 +8,22 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+
+  font-family: "Cairo", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
 }
 
 #app {
   width: 100vw;
   height: 100vh;
+  background-color: #212121;
+}
+
+input {
+  font-family: "Cairo", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
 }

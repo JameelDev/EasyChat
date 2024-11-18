@@ -7,15 +7,10 @@ EasyChat is a simple and customizable chat interface built with Vue.js. Users ca
 - **Simple setup**: Just set your backend URL and you're good to go.
 - **Lightweight and fast**: The app is lightweight, focusing on providing a seamless chat experience.
 
-## Demo
-
-You can check out a live demo of EasyChat by visiting [Live Demo Link](#). *(Insert your live demo link here)*
-
 ## Tech Stack
 
 - **Frontend:** Vue.js
-- **State Management:** Vuex (if used)
-- **Styling:** Tailwind CSS or custom CSS (depending on your choice)
+- **Styling:** Tailwind CSS and custom CSS
 
 ## Installation
 
